@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentasi Proses & Rencana - [Nama Anda]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Color Palette: Brilliant Blues */
+        /* Primary Background: #FFFFFF (White) */
+        /* Primary Text: #333333 (Dark Gray) */
+        /* Accent Colors: #003f5c (Deep Blue), #ffa600 (Gold), #2f4b7c (Medium Blue), #f95d6a (Coral), #a05195 (Magenta) */
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFFFF;
+            color: #333333;
+            line-height: 1.6; /* Enhanced readability */
+        }
+        .section-heading {
+            color: #003f5c; /* Deep Blue */
+            letter-spacing: -0.025em; /* Tighter letter spacing for luxury feel */
+        }
+        .accent-text {
+            color: #ffa600; /* Gold */
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 16px; /* Slightly more rounded */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* More prominent shadow for luxury */
+            padding: 32px; /* Increased padding */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
+        }
+        .card:hover {
+            transform: translateY(-5px); /* Subtle lift on hover */
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px; /* Increased max-width for charts */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height for charts */
+            max-height: 450px; /* Max height for charts */
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px; /* Adjust height for larger screens */
+            }
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 60px; /* More padding for timeline */
+            margin-bottom: 40px; /* More space between items */
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px; /* Adjust vertical position */
+            width: 16px; /* Slightly larger dot */
+            height: 16px;
+            border-radius: 50%;
+            background-color: #ffa600; /* Gold */
+            border: 4px solid #003f5c; /* Deep Blue */
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 7px; /* Align with dot center */
+            top: 28px; /* Start below the dot */
+            bottom: -10px;
+            width: 2px;
+            background-color: #2f4b7c; /* Medium Blue */
+        }
+        .timeline-item:last-child::after {
+            display: none; /* Hide line for the last item */
+        }
+        .button-primary {
+            background-color: #003f5c; /* Deep Blue */
+            color: #FFFFFF;
+            padding: 14px 36px; /* Slightly smaller padding */
+            border-radius: 9999px; /* Pill shape */
+            font-weight: 600;
+            font-size: 1rem; /* base text */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 63, 92, 0.2); /* Subtle shadow */
+        }
+        .button-primary:hover {
+            background-color: #2f4b7c; /* Medium Blue on hover */
+            transform: translateY(-2px); /* Slight lift */
+            box-shadow: 0 6px 20px rgba(0, 63, 92, 0.3);
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+    <!--
+    Narrative & Structure Plan:
+    1. Header: Brand identity and main title.
+    2. Proses (Journey/Evolution): A timeline of past and current activities.
+    3. Hasil (Achievements): A list of key accomplishments.
+    4. Running (Current Focus): A bar chart showing conceptual effort distribution.
+    5. Rencana Masa Depan (Future Plans):
+        - Plan 1: Specific, measurable goals including a financial target visualized with a bar chart.
+        - Plan 2: Strategic, organizational goals.
+    6. Footer: Contact information and call to action.
+
+    Visualization Choices & Justification (NO SVG, NO MERMAID JS, NO Plotly.js):
+    - Proses: Timeline (Structured HTML/CSS with Tailwind). Justification: Best for showing chronological progression of diverse activities.
+    - Hasil: List/Cards with Unicode icons (Structured HTML/CSS with Tailwind). Justification: Simple and direct for conveying completed tasks.
+    - Running: Bar Chart (Chart.js). Justification: Effectively shows conceptual distribution of focus/effort across different areas.
+    - Plan 1 (Financial Goal): Horizontal Bar Chart (Chart.js). Justification: Visually represents progress towards a specific numerical target.
+    - Plan 1 & 2 (Other Goals): Lists with strong typography (Structured HTML/CSS with Tailwind). Justification: Clear and concise for outlining specific and strategic goals.
+    - Icons: Standard Unicode characters or styled text. Justification: Adheres to the NO SVG constraint.
+
+    Color Palette: Brilliant Blues
+    - Primary Background: #FFFFFF (White) - Apple-like clean design.
+    - Primary Text: #333333 (Dark Gray) - High contrast.
+    - Accent Colors (from Brilliant Blues palette):
+        - #003f5c (Deep Blue) - Headings, strong accents.
+        - #ffa600 (Gold) - Primary highlight, buttons.
+        - #2f4b7c (Medium Blue) - Secondary accents, subtle backgrounds.
+        - #f95d6a (Coral) - Chart segment/progress color.
+        - #a05195 (Magenta) - Chart segment/progress color.
+    -->
+
+    <header class="py-20 bg-white text-center">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h1 class="text-5xl md:text-6xl font-black tracking-tight section-heading leading-tight">
+                Perjalanan Inovasi & Visi Strategis
+            </h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-600 font-light max-w-3xl mx-auto">
+                Mengeksplorasi proses kreatif, pencapaian transformatif, dan rencana strategis yang ambisius untuk masa depan.
+            </p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-16">
+
+        <!-- Bagian Proses -->
+        <section id="proses" class="mb-28">
+            <h2 class="text-4xl font-bold text-center mb-12 section-heading">Proses Kreatif & Evolusi</h2>
+            <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12">
+                Perjalanan saya telah melibatkan berbagai eksplorasi dan inisiatif, membentuk fondasi yang kokoh untuk inovasi berkelanjutan. Berikut adalah gambaran proses yang telah saya lalui, dari ide hingga realisasi.
+            </p>
+            <div class="relative max-w-2xl mx-auto py-10">
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold text-gray-800">YouTube Creator</h3>
+                    <p class="text-base text-gray-600">Membangun platform konten video dan mengembangkan komunitas digital yang aktif.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold text-gray-800">Membuat Kaos</h3>
+                    <p class="text-base text-gray-600">Mendalami proses produksi dan strategi penjualan merchandise, dari desain hingga distribusi.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold text-gray-800">FB Ads</h3>
+                    <p class="text-base text-gray-600">Menguasai optimalisasi kampanye periklanan digital di Facebook untuk jangkauan dan konversi maksimal.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold text-gray-800">Dropshipper</h3>
+                    <p class="text-base text-gray-600">Mengembangkan model bisnis tanpa inventaris fisik, fokus pada efisiensi rantai pasok dan pemasaran.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold text-gray-800">Shopee</h3>
+                    <p class="text-base text-gray-600">Memanfaatkan ekosistem e-commerce Shopee untuk pertumbuhan penjualan dan ekspansi pasar.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold text-gray-800">Limbah</h3>
+                    <p class="text-base text-gray-600">Mengeksplorasi peluang bisnis inovatif dalam pengelolaan dan daur ulang limbah.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold text-gray-800">Trading</h3>
+                    <p class="text-base text-gray-600">Mengembangkan keahlian dan strategi canggih di pasar finansial global.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold text-gray-800">Telepati</h3>
+                    <p class="text-base text-gray-600">Mendalami konsep dan aplikasi potensial dari telepati, membuka dimensi baru eksplorasi.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold text-gray-800">Jual Aksesoris</h3>
+                    <p class="text-base text-gray-600">Pengalaman langsung dalam penjualan produk fashion dan gaya hidup, membangun brand dan loyalitas pelanggan.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold text-gray-800">Membuat Group Komunitas Telkom</h3>
+                    <p class="text-base text-gray-600">Membangun jaringan profesional dan kolaborasi strategis di sektor telekomunikasi.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold text-gray-800">Trade</h3>
+                    <p class="text-base text-gray-600">Pengembangan lebih lanjut dalam aktivitas perdagangan, mengoptimalkan strategi dan profitabilitas.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold text-gray-800">Funding Program</h3>
+                    <p class="text-base text-gray-600">Inisiasi dan pengelolaan program pendanaan untuk mendukung proyek-proyek inovatif.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Hasil -->
+        <section id="hasil" class="mb-28">
+            <h2 class="text-4xl font-bold text-center mb-12 section-heading">Pencapaian Kunci</h2>
+            <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12">
+                Dari konsepsi hingga eksekusi, setiap inisiatif telah menghasilkan pencapaian signifikan yang membentuk fondasi kuat untuk pertumbuhan di masa depan.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card flex items-start space-x-4">
+                    <span class="text-3xl accent-text">✨</span>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-1">Desain Aplikasi & Web</h3>
+                        <p class="text-base text-gray-600">Menciptakan desain UI/UX yang intuitif dan estetis menggunakan Figma, memastikan pengalaman pengguna yang superior.</p>
+                    </div>
+                </div>
+                <div class="card flex items-start space-x-4">
+                    <span class="text-3xl accent-text">🛠️</span>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-1">Implementasi Nyata</h3>
+                        <p class="text-base text-gray-600">Mewujudkan desain web dan aplikasi menjadi produk fungsional di Visual Studio, siap untuk digunakan.</p>
+                    </div>
+                </div>
+                <div class="card flex items-start space-x-4">
+                    <span class="text-3xl accent-text">📊</span>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-1">Pengelolaan Data Baku</h3>
+                        <p class="text-base text-gray-600">Membangun arsitektur dan sistem untuk pengelolaan data baku yang efisien dan terstruktur.</p>
+                    </div>
+                </div>
+                <div class="card flex items-start space-x-4">
+                    <span class="text-3xl accent-text">🌐</span>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-1">Rilis & Publikasi Web Perdana</h3>
+                        <p class="text-base text-gray-600">Berhasil meluncurkan dan mempublikasikan website pertama, menandai kehadiran digital yang kuat.</p>
+                    </div>
+                </div>
+                <div class="card flex items-start space-x-4">
+                    <span class="text-3xl accent-text">🔭</span>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-1">Perencanaan Masa Depan</h3>
+                        <p class="text-base text-gray-600">Menyusun rencana strategis yang komprehensif dan adaptif untuk pertumbuhan jangka panjang.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Running -->
+        <section id="running" class="mb-28">
+            <h2 class="text-4xl font-bold text-center mb-12 section-heading">Fokus Operasional Saat Ini</h2>
+            <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12">
+                Energi dan sumber daya saya saat ini difokuskan pada tiga pilar utama untuk mendorong inovasi dan pertumbuhan berkelanjutan.
+            </p>
+            <div class="chart-container card p-6">
+                <canvas id="runningChart"></canvas>
+            </div>
+            <p class="text-sm text-gray-500 text-center mt-5 max-w-2xl mx-auto">
+                Grafik ini mengilustrasikan alokasi fokus dan usaha saya pada area-area kunci operasional yang sedang berjalan, mencerminkan prioritas strategis.
+            </p>
+        </section>
+
+        <!-- Bagian Rencana Masa Depan -->
+        <section id="rencana" class="mb-28">
+            <h2 class="text-4xl font-bold text-center mb-12 section-heading">Rencana Strategis Masa Depan</h2>
+            <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12">
+                Visi jangka pendek dan panjang yang ambisius untuk skalabilitas bisnis dan formalisasi struktural.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Plan 1 -->
+                <div class="card">
+                    <h3 class="text-2xl font-bold mb-6 section-heading">Rencana 1: Fondasi Pertumbuhan Agresif</h3>
+                    <ul class="space-y-5 text-gray-700 text-base">
+                        <li class="flex items-start">
+                            <span class="text-2xl accent-text mr-3">✅</span>
+                            <div>
+                                <strong class="text-gray-800">Membuktikan Program Funding:</strong> Memastikan seluruh siklus program pendanaan berhasil, dari inisiasi hingga penarikan dana yang sukses.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl accent-text mr-3">🚀</span>
+                            <div>
+                                <strong class="text-gray-800">Peningkatan Skala Signifikan:</strong> Memperbesar skala program hingga mencapai target ambisius $300.000, mendorong pertumbuhan eksponensial.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl accent-text mr-3">🤝</span>
+                            <div>
+                                <strong class="text-gray-800">Pembentukan Tim Inti:</strong> Membangun tim pertama yang terdiri dari 5 individu berdedikasi dan ahli untuk mempercepat eksekusi.
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="mt-10">
+                         <h4 class="text-xl font-semibold mb-4 text-gray-800">Target Pendanaan: $300.000</h4>
+                         <div class="chart-container h-28 max-h-28 p-3">
+                            <canvas id="fundingTargetChart"></canvas>
+                         </div>
+                         <p class="text-sm text-gray-500 text-center mt-3">
+                            Visualisasi kemajuan menuju target pendanaan $300.000, menunjukkan proporsi yang telah tercapai.
+                         </p>
+                    </div>
+                </div>
+
+                <!-- Plan 2 -->
+                <div class="card">
+                    <h3 class="text-2xl font-bold mb-6 section-heading">Rencana 2: Skalabilitas & Formalisasi Korporat</h3>
+                    <ul class="space-y-5 text-gray-700 text-base">
+                        <li class="flex items-start">
+                            <span class="text-2xl accent-text mr-3">🌟</span>
+                            <div>
+                                <strong class="text-gray-800">Pembentukan Tim Profesional:</strong> Mengembangkan tim dengan keahlian spesifik dan standar profesional tinggi untuk mendukung pertumbuhan berkelanjutan.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl accent-text mr-3">🏛️</span>
+                            <div>
+                                <strong class="text-gray-800">Pendirian Perusahaan PT:</strong> Melakukan formalisasi bisnis dengan mendirikan Perseroan Terbatas, membangun struktur hukum yang kuat.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl accent-text mr-3">⚖️</span>
+                            <div>
+                                <strong class="text-gray-800">Pembentukan Tim Hukum & Keuangan:</strong> Membangun tim spesialis yang mencakup Tax Planner, Lawyer, Notaris, dan profesional hukum lainnya untuk kepatuhan dan strategi.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-14 bg-gray-100 text-center text-gray-600">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <p class="text-base font-medium">&copy; 2025 [Nama Anda]. Semua Hak Dilindungi.</p>
+            <p class="mt-2 text-sm">Didesain dengan visi yang jelas dan inovasi tanpa henti.</p>
+            <a href="#" class="mt-6 inline-block button-primary">Hubungi Saya</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Chart.js default tooltip configuration
+            const defaultTooltipOptions = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                    return label.join(' ');
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Function to wrap long labels
+            function wrapLabel(str, maxWidth) {
+                if (str.length <= maxWidth) return str;
+                const words = str.split(' ');
+                let lines = [];
+                let currentLine = words[0];
+                for (let i = 1; i < words.length; i++) {
+                    if ((currentLine + ' ' + words[i]).length > maxWidth) {
+                        lines.push(currentLine);
+                        currentLine = words[i];
+                    } else {
+                        currentLine += ' ' + words[i];
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            }
+
+            // Chart for "Running" section (Conceptual Focus Distribution)
+            const runningCtx = document.getElementById('runningChart').getContext('2d');
+            new Chart(runningCtx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        wrapLabel('Trading', 16),
+                        wrapLabel('Programming', 16),
+                        wrapLabel('Marketing', 16)
+                    ],
+                    datasets: [{
+                        label: 'Persentase Fokus',
+                        data: [45, 30, 25], // Conceptual percentages
+                        backgroundColor: ['#003f5c', '#ffa600', '#f95d6a'], // Deep Blue, Gold, Coral
+                        borderColor: '#FFFFFF',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    ...defaultTooltipOptions,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                color: '#666',
+                                font: { size: 10 }, /* Smaller font for ticks */
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: {
+                                color: '#eee'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#666',
+                                font: { size: 12 } /* Smaller font for labels */
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        ...defaultTooltipOptions.plugins,
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Distribusi Fokus Operasional Saat Ini',
+                            color: '#333333',
+                            font: {
+                                size: 16, /* Smaller font for chart title */
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart for "Plan 1" - Funding Target
+            const fundingTargetCtx = document.getElementById('fundingTargetChart').getContext('2d');
+            const currentFunding = 90000; // Example: $90,000 achieved
+            const targetFunding = 300000; // Target: $300,000
+            const remainingFunding = targetFunding - currentFunding;
+
+            new Chart(fundingTargetCtx, {
+                type: 'horizontalBar', // Use horizontal bar for progress
+                data: {
+                    labels: ['Progress Pendanaan'],
+                    datasets: [
+                        {
+                            label: 'Tercapai',
+                            data: [currentFunding],
+                            backgroundColor: '#ffa600', // Gold
+                            borderColor: '#FFFFFF',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Sisa Target',
+                            data: [remainingFunding],
+                            backgroundColor: '#2f4b7c', // Medium Blue
+                            borderColor: '#FFFFFF',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    ...defaultTooltipOptions,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true,
+                            beginAtZero: true,
+                            max: targetFunding,
+                            ticks: {
+                                color: '#666',
+                                font: { size: 10 }, /* Smaller font for ticks */
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            },
+                            grid: {
+                                color: '#eee'
+                            }
+                        },
+                        y: {
+                            stacked: true,
+                            ticks: {
+                                color: '#666',
+                                font: { size: 12 } /* Smaller font for labels */
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        ...defaultTooltipOptions.plugins,
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#333333',
+                                font: { size: 10 } /* Smaller font for legend */
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Progress Menuju Target Pendanaan $300.000',
+                            color: '#333333',
+                            font: {
+                                size: 16, /* Smaller font for chart title */
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
